@@ -360,6 +360,7 @@
 		<Unit filename="lib/imgui-1.90/imstb_textedit.h" />
 		<Unit filename="lib/imgui-1.90/imstb_truetype.h" />
 		<Unit filename="lib/std_image/stb_image.h" />
+		<Unit filename="project/default/default.cpp" />
 		<Unit filename="project/include/camera.hpp" />
 		<Unit filename="project/include/ebo.hpp" />
 		<Unit filename="project/include/framebuffer.hpp" />
@@ -392,42 +393,6 @@
 		<Unit filename="project/src/ubo.cpp" />
 		<Unit filename="project/src/vao.cpp" />
 		<Unit filename="project/src/vbo.cpp" />
-		<Unit filename="project/tests/default.cpp" />
-		<Unit filename="project/tests/ex_1.cpp" />
-		<Unit filename="project/tests/ex_10.cpp" />
-		<Unit filename="project/tests/ex_11.cpp" />
-		<Unit filename="project/tests/ex_12.cpp" />
-		<Unit filename="project/tests/ex_13.cpp" />
-		<Unit filename="project/tests/ex_14.cpp" />
-		<Unit filename="project/tests/ex_15.cpp" />
-		<Unit filename="project/tests/ex_16.cpp" />
-		<Unit filename="project/tests/ex_17.cpp" />
-		<Unit filename="project/tests/ex_18.cpp" />
-		<Unit filename="project/tests/ex_19.cpp" />
-		<Unit filename="project/tests/ex_2.cpp" />
-		<Unit filename="project/tests/ex_20.cpp" />
-		<Unit filename="project/tests/ex_21.cpp" />
-		<Unit filename="project/tests/ex_22.cpp" />
-		<Unit filename="project/tests/ex_23.cpp" />
-		<Unit filename="project/tests/ex_24.cpp" />
-		<Unit filename="project/tests/ex_25.cpp" />
-		<Unit filename="project/tests/ex_26.cpp" />
-		<Unit filename="project/tests/ex_27.cpp" />
-		<Unit filename="project/tests/ex_28.cpp" />
-		<Unit filename="project/tests/ex_29.cpp" />
-		<Unit filename="project/tests/ex_3.cpp" />
-		<Unit filename="project/tests/ex_30.cpp" />
-		<Unit filename="project/tests/ex_31.cpp" />
-		<Unit filename="project/tests/ex_32.cpp" />
-		<Unit filename="project/tests/ex_33.cpp" />
-		<Unit filename="project/tests/ex_4.cpp" />
-		<Unit filename="project/tests/ex_5.cpp" />
-		<Unit filename="project/tests/ex_6.cpp" />
-		<Unit filename="project/tests/ex_7.cpp" />
-		<Unit filename="project/tests/ex_8.cpp" />
-		<Unit filename="project/tests/ex_9.cpp" />
-		<Unit filename="project/tests/imgui_test.cpp" />
-		<Unit filename="project/tests/load_assimp_test.cpp" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
