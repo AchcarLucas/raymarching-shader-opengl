@@ -9,8 +9,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-using namespace std;
-
 static void processInput(GLFWwindow *, float);
 static void mouseCallback(GLFWwindow*, double, double);
 static void scrollCallback(GLFWwindow*, double, double);
