@@ -11,7 +11,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#define EX_MARCHING 02
+#define EX_MARCHING 01
 
 static void processInput(GLFWwindow *, float);
 
@@ -42,10 +42,10 @@ int run_default(const int width, const int height)
 {
     _stbi_set_flip_vertically_on_load(true);
 
-    #if EX_MARCHING == 01
-        Shader *shader = new Shader("glsl/ex_01/first_vertex_shader.vs", "glsl/ex_01/first_fragment_shader.fs");
-    #elif EX_MARCHING == 02
-        Shader *shader = new Shader("glsl/ex_02/shader.vs", "glsl/ex_02/shader.fs");
+    #if EX_MARCHING == 00
+        Shader *shader = new Shader("glsl/default/shader.vs", "glsl/default/shader.fs");
+    #elif EX_MARCHING == 01
+        Shader *shader = new Shader("glsl/ex_01/shader.vs", "glsl/ex_01/shader.fs");
     #endif // EX_MARCHING
 
     ubo = new UBO("General", 2* sizeof(int), 0);
