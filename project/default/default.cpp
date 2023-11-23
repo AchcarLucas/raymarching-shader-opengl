@@ -11,7 +11,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#define EX_MARCHING 03
+#define EX_MARCHING 04
 
 static void processInput(GLFWwindow *, float);
 static void mouseCallback(GLFWwindow*, double, double);
@@ -53,6 +53,8 @@ int run_default(const int width, const int height)
         Shader *shader = new Shader("glsl/ex_02/shader.vs", "glsl/ex_02/shader.fs");
     #elif EX_MARCHING == 03
         Shader *shader = new Shader("glsl/christmas/shader.vs", "glsl/christmas/shader.fs");
+    #elif EX_MARCHING == 04
+        Shader *shader = new Shader("glsl/structures/shader.vs", "glsl/structures/shader.fs");
     #endif // EX_MARCHING
 
     ubo = new UBO("General", 2 * sizeof(glm::vec2) + sizeof(float), 0);
