@@ -54,8 +54,4 @@ Verifique se a configuração do seu codeblock como segue as imagens a seguir:
 
 Pronto, o Codeblock está configurado
 
-### 🚀 Executando um exemplo
-
-------------------------------------
-#### TODO
-------------------------------------
+### 🚀 Executando um exemplo (TODO)
