@@ -12,8 +12,6 @@
 #include <glm/gtc/type_ptr.hpp>
 
 static void processInput(GLFWwindow *, float);
-static void mouseCallback(GLFWwindow*, double, double);
-static void scrollCallback(GLFWwindow*, double, double);
 
 // camera class
 static Camera *camera = new Camera();
@@ -48,9 +46,7 @@ int run_default(const int width, const int height)
 
     Mesh *quad = new Mesh(quad_vertices, quad_indices, textures, VERTEX_TYPE::ATTRIB_PNT);
 
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    glfwSetCursorPosCallback(window, mouseCallback);
-    glfwSetScrollCallback(window, scrollCallback);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
     glEnable(GL_DEPTH_TEST);
 
@@ -81,14 +77,4 @@ int run_default(const int width, const int height)
 static void processInput(GLFWwindow *window, float delta_time)
 {
     camera->processInput(window, delta_time);
-}
-
-static void mouseCallback(GLFWwindow* window, double x_pos, double y_pos)
-{
-    camera->mouseCallback(window, x_pos, y_pos);
-}
-
-static void scrollCallback(GLFWwindow* window, double x_offset, double y_offset)
-{
-    camera->scrollCallback(window, x_offset, y_offset);
 }
