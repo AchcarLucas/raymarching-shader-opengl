@@ -13,7 +13,16 @@ layout (std140) uniform General {
 	float height;
 } general;
 
+vec2 iResolution = vec2(general.width, general.height);
+
+vec4 mainImage(vec2 fragCoord);
+
 void main() 
 {
-    FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    FragColor = mainImage(vec2(vs_out.position));
+}
+
+vec4 mainImage(vec2 fragCoord)
+{
+    return vec4(0.0, 1.0, 0.0, 1.0);
 }
