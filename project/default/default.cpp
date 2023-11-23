@@ -11,6 +11,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#define EX_MARCHING 02
+
 static void processInput(GLFWwindow *, float);
 
 // camera class
@@ -32,12 +34,15 @@ static std::vector<GLuint> quad_indices = {
     3, 2, 1
 };
 
-
 int run_default(const int width, const int height)
 {
     _stbi_set_flip_vertically_on_load(true);
 
-    Shader *shader = new Shader("glsl/ex_01/first_vertex_shader.vs", "glsl/ex_01/first_fragment_shader.fs");
+    #if EX_MARCHING == 01
+        Shader *shader = new Shader("glsl/ex_01/first_vertex_shader.vs", "glsl/ex_01/first_fragment_shader.fs");
+    #elif EX_MARCHING == 02
+        Shader *shader = new Shader("glsl/ex_02/shader.vs", "glsl/ex_02/shader.fs");
+    #endif // EX_MARCHING
 
     UBO *ubo = new UBO("General", 2* sizeof(float), 0);
     shader->setUniformBlockBinding(ubo->getName(), ubo->getBinding());
