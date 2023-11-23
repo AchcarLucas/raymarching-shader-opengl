@@ -24,5 +24,13 @@ void main()
 
 vec4 mainImage(vec2 fragCoord)
 {
-    return vec4(0.0, 1.0, 0.0, 1.0);
+    vec2 uv = (fragCoord - 0.5 * iResolution.xy) / iResolution.y;
+    vec3 color = vec3(0);
+
+    // ray origen
+    vec3 ro = vec3(0, 1, 0);
+    // ray direction
+    vec3 rd = normalize(vec3(uv.x, uv.y, 1));
+
+    return vec4(color, 1.0);
 }
