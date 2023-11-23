@@ -2,9 +2,18 @@
 
 out vec4 FragColor;
 
-in vec3 outColor;
+in struct VS_DATA {
+    vec3 position;
+    vec3 normal;
+    vec2 tex;
+} vs_out;
 
-void main()
+layout (std140) uniform General {
+    float width;
+	float height;
+} general;
+
+void main() 
 {
-    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+    FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }

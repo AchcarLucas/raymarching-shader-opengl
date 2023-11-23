@@ -34,6 +34,10 @@ static std::vector<GLuint> quad_indices = {
     3, 2, 1
 };
 
+static void updateShader(const int width, const int height);
+
+static UBO *ubo;
+
 int run_default(const int width, const int height)
 {
     _stbi_set_flip_vertically_on_load(true);
@@ -44,7 +48,11 @@ int run_default(const int width, const int height)
         Shader *shader = new Shader("glsl/ex_02/shader.vs", "glsl/ex_02/shader.fs");
     #endif // EX_MARCHING
 
-    UBO *ubo = new UBO("General", 2* sizeof(float), 0);
+    ubo = new UBO("General", 2* sizeof(int), 0);
+
+    ubo->UBOSubBuffer(&width, 0, sizeof(int));
+    ubo->UBOSubBuffer(&height, 0, 2 * sizeof(int));
+
     shader->setUniformBlockBinding(ubo->getName(), ubo->getBinding());
 
     std::vector<Texture2D*> textures = {};
@@ -62,6 +70,8 @@ int run_default(const int width, const int height)
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+
+        updateShader(width, height);
 
         quad->draw(shader);
 
@@ -82,4 +92,10 @@ int run_default(const int width, const int height)
 static void processInput(GLFWwindow *window, float delta_time)
 {
     camera->processInput(window, delta_time);
+}
+
+static void updateShader(const int width, const int height)
+{
+    ubo->UBOSubBuffer(&width, 0, sizeof(int));
+    ubo->UBOSubBuffer(&height, 0, 2 * sizeof(int));
 }
