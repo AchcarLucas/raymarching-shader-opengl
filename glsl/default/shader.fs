@@ -22,6 +22,8 @@ void main()
     FragColor = mainImage(vec2(vs_out.position));
 }
 
+/////////////////////////////////////////////////////////////////////
+
 vec4 mainImage(vec2 fragCoord)
 {
     return vec4(0.0, 1.0, 0.0, 1.0);

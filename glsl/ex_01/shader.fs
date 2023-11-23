@@ -22,6 +22,8 @@ void main()
     FragColor = mainImage(vec2(vs_out.position));
 }
 
+/////////////////////////////////////////////////////////////////////
+
 vec4 mainImage(vec2 fragCoord)
 {
     vec2 uv = (fragCoord - 0.5 * iResolution.xy) / iResolution.y;
