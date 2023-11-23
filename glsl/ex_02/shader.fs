@@ -63,7 +63,7 @@ float getLight(vec3 p)
     p_light.xz += vec2(sin(iTime), cos(iTime));
     vec3 v_light = normalize(p_light - p);
     vec3 normal = getNormal(p);
-    float diffuse = dot(v_light, normal);
+    float diffuse = clamp(dot(v_light, normal), 0.0, 1.0);
     return diffuse;
 }
 
