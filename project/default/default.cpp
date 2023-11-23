@@ -11,7 +11,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#define EX_MARCHING 02
+#define EX_MARCHING 03
 
 static void processInput(GLFWwindow *, float);
 
@@ -49,12 +49,14 @@ int run_default(const int width, const int height)
         Shader *shader = new Shader("glsl/ex_01/shader.vs", "glsl/ex_01/shader.fs");
     #elif EX_MARCHING == 02
         Shader *shader = new Shader("glsl/ex_02/shader.vs", "glsl/ex_02/shader.fs");
+    #elif EX_MARCHING == 03
+        Shader *shader = new Shader("glsl/christmas/shader.vs", "glsl/christmas/shader.fs");
     #endif // EX_MARCHING
 
-    ubo = new UBO("General", 2 * sizeof(int) + sizeof(float), 0);
+    ubo = new UBO("General", 2 * sizeof(glm::vec2) + sizeof(float), 0);
 
-    ubo->UBOSubBuffer(&width , 0, sizeof(int));
-    ubo->UBOSubBuffer(&height, sizeof(int), sizeof(int));
+    glm::vec2 resolution = glm::vec2(width, height);
+    ubo->UBOSubBuffer(glm::value_ptr(resolution), 0, sizeof(glm::vec2));
 
     shader->use();
     shader->setUniformBlockBinding(ubo->getName(), ubo->getBinding());
@@ -98,10 +100,17 @@ static void processInput(GLFWwindow *window, float delta_time)
     camera->processInput(window, delta_time);
 }
 
+void mouseCallback(GLFWwindow* window, double x_pos, double y_pos)
+{
+    glm::vec2 mouse = glm::vec2(x_pos, y_pos);
+    ubo->UBOSubBuffer(glm::value_ptr(mouse), sizeof(glm::vec2), sizeof(glm::vec2));
+}
+
 static void updateShader(const int width, const int height)
 {
     float i_time = glfwGetTime();
-    ubo->UBOSubBuffer(&width, 0, sizeof(int));
-    ubo->UBOSubBuffer(&height, sizeof(int), sizeof(int));
-    ubo->UBOSubBuffer(&i_time, 2 * sizeof(int), sizeof(float));
+    glm::vec2 resolution = glm::vec2(width, height);
+
+    ubo->UBOSubBuffer(glm::value_ptr(resolution), 0, sizeof(glm::vec2));
+    ubo->UBOSubBuffer(&i_time, 2 * sizeof(glm::vec2), sizeof(float));
 }

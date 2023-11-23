@@ -9,12 +9,13 @@ in struct VS_DATA {
 } vs_out;
 
 layout (std140) uniform General {
-    int width;
-	int height;
+    vec2 resolution;
+    vec2 mouse;
     float time;
 } general;
 
-vec2 iResolution = vec2(general.width, general.height);
+vec2 iResolution = general.resolution;
+vec2 iMouse = general.mouse;
 float iTime = general.time;
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord);
