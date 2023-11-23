@@ -1,6 +1,6 @@
 #version 330 core
 
-out vec4 FragColor;
+out vec4 fragColor;
 
 in struct VS_DATA {
     vec3 position;
@@ -9,22 +9,30 @@ in struct VS_DATA {
 } vs_out;
 
 layout (std140) uniform General {
-    float width;
-	float height;
+    int width;
+	int height;
 } general;
 
-vec2 iResolution = vec2(general.width, general.height);
+vec2 iResolution = vec2(general.height, general.width);
 
-vec4 mainImage(vec2 fragCoord);
+void mainImage(out vec4 fragColor, in vec2 fragCoord);
+vec4 gammaCorrection(vec4 color);
 
-void main() 
+vec4 gammaCorrection(vec4 color)
 {
-    FragColor = mainImage(vec2(vs_out.position));
+    float gamma = 2.2;
+    return pow(color, 1.0 / vec4(gamma));
+}
+
+void main()
+{
+    mainImage(fragColor, gl_FragCoord.xy);
+    // fragColor = gammaCorrection(fragColor);
 }
 
 /////////////////////////////////////////////////////////////////////
 
-vec4 mainImage(vec2 fragCoord)
+void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
-    return vec4(0.0, 1.0, 0.0, 1.0);
+ fragColor = vec4(1.0, 0.0, 0.0, 1.0);   
 }

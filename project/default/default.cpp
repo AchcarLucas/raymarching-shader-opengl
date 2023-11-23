@@ -30,8 +30,9 @@ static std::vector<Vertex> quad_vertices = {
 };
 
 static std::vector<GLuint> quad_indices = {
-    3, 1, 0,
-    3, 2, 1
+    0, 1, 2,
+    0, 2, 3
+
 };
 
 static void updateShader(const int width, const int height);
@@ -48,11 +49,12 @@ int run_default(const int width, const int height)
         Shader *shader = new Shader("glsl/ex_01/shader.vs", "glsl/ex_01/shader.fs");
     #endif // EX_MARCHING
 
-    ubo = new UBO("General", 2* sizeof(int), 0);
+    ubo = new UBO("General", 2 * sizeof(int), 0);
 
-    ubo->UBOSubBuffer(&width, 0, sizeof(int));
-    ubo->UBOSubBuffer(&height, 0, 2 * sizeof(int));
+    ubo->UBOSubBuffer(&width , 0, sizeof(int));
+    ubo->UBOSubBuffer(&height, sizeof(int), 2 * sizeof(int));
 
+    shader->use();
     shader->setUniformBlockBinding(ubo->getName(), ubo->getBinding());
 
     std::vector<Texture2D*> textures = {};
