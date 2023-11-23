@@ -63,7 +63,17 @@ float getLight(vec3 p)
     p_light.xz += vec2(sin(iTime), cos(iTime));
     vec3 v_light = normalize(p_light - p);
     vec3 normal = getNormal(p);
+
     float diffuse = clamp(dot(v_light, normal), 0.0, 1.0);
+
+    float d = rayMarch(p + normal * SURF_DIST, v_light);
+
+    // vamos verificar se ocorreu alguma intersecção entre a luz e o ponto
+    if(d < length(p_light - p))
+    {
+        diffuse *= 0.1f;
+    }
+
     return diffuse;
 }
 
