@@ -14,6 +14,8 @@
 #define EX_MARCHING 03
 
 static void processInput(GLFWwindow *, float);
+static void mouseCallback(GLFWwindow*, double, double);
+static void scrollCallback(GLFWwindow*, double, double);
 
 // camera class
 static Camera *camera = new Camera();
@@ -66,6 +68,8 @@ int run_default(const int width, const int height)
     Mesh *quad = new Mesh(quad_vertices, quad_indices, textures, VERTEX_TYPE::ATTRIB_PNT);
 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    glfwSetCursorPosCallback(window, mouseCallback);
+    glfwSetScrollCallback(window, scrollCallback);
 
     glEnable(GL_DEPTH_TEST);
 
@@ -100,11 +104,13 @@ static void processInput(GLFWwindow *window, float delta_time)
     camera->processInput(window, delta_time);
 }
 
-void mouseCallback(GLFWwindow* window, double x_pos, double y_pos)
+static void mouseCallback(GLFWwindow* window, double x_pos, double y_pos)
 {
     glm::vec2 mouse = glm::vec2(x_pos, y_pos);
     ubo->UBOSubBuffer(glm::value_ptr(mouse), sizeof(glm::vec2), sizeof(glm::vec2));
 }
+
+void scrollCallback(GLFWwindow* window, double x_offset, double y_offset) { }
 
 static void updateShader(const int width, const int height)
 {
