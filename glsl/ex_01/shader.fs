@@ -11,9 +11,11 @@ in struct VS_DATA {
 layout (std140) uniform General {
     int width;
 	int height;
+    float time;
 } general;
 
-vec2 iResolution = vec2(general.height, general.width);
+vec2 iResolution = vec2(general.width, general.height);
+float iTime = general.time;
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord);
 vec4 gammaCorrection(vec4 color);

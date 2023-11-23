@@ -51,10 +51,10 @@ int run_default(const int width, const int height)
         Shader *shader = new Shader("glsl/ex_02/shader.vs", "glsl/ex_02/shader.fs");
     #endif // EX_MARCHING
 
-    ubo = new UBO("General", 2 * sizeof(int), 0);
+    ubo = new UBO("General", 2 * sizeof(int) + sizeof(float), 0);
 
     ubo->UBOSubBuffer(&width , 0, sizeof(int));
-    ubo->UBOSubBuffer(&height, sizeof(int), 2 * sizeof(int));
+    ubo->UBOSubBuffer(&height, sizeof(int), sizeof(int));
 
     shader->use();
     shader->setUniformBlockBinding(ubo->getName(), ubo->getBinding());
@@ -100,6 +100,8 @@ static void processInput(GLFWwindow *window, float delta_time)
 
 static void updateShader(const int width, const int height)
 {
+    float i_time = glfwGetTime();
     ubo->UBOSubBuffer(&width, 0, sizeof(int));
-    ubo->UBOSubBuffer(&height, 0, 2 * sizeof(int));
+    ubo->UBOSubBuffer(&height, sizeof(int), sizeof(int));
+    ubo->UBOSubBuffer(&i_time, 2 * sizeof(int), sizeof(float));
 }

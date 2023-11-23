@@ -11,9 +11,11 @@ in struct VS_DATA {
 layout (std140) uniform General {
     int width;
 	int height;
+    float time;
 } general;
 
-vec2 iResolution = vec2(general.height, general.width);
+vec2 iResolution = vec2(general.width, general.height);
+float iTime = general.time;
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord);
 vec4 gammaCorrection(vec4 color);
@@ -58,6 +60,7 @@ vec3 getNormal(vec3 p)
 float getLight(vec3 p)
 {
     vec3 p_light = vec3(0, 5, 6);
+    p_light.xz += vec2(sin(iTime), cos(iTime));
     vec3 v_light = normalize(p_light - p);
     vec3 normal = getNormal(p);
     float diffuse = dot(v_light, normal);
