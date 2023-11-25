@@ -43,8 +43,48 @@ float getDist(vec3 p);
 float rayMarch(vec3 ro, vec3 rd);
 float getLight(vec3 p);
 
-float drawSphere(vec3 p, vec3 position, float radiuns);
+float drawSphere(vec3 p, vec3 a, float r);
+float drawCapsule(vec3 p, vec3 a, vec3 b, float r);
+float drawTorus(vec3 p, float r, float s);
+float drawBox(vec3 p, vec3 s);
 float drawPlane(vec3 p);
+
+// ********** Operation **********
+
+float smooth_min(float a, float b, float k);
+float smooth_max(float a, float b, float k);
+
+float subtractOp(float a, float b);
+float intersectionOp(float a, float b);
+float unionOp(float a, float b);
+
+float smooth_min(float a, float b, float k) 
+{
+    float h = clamp(0.5 + 0.5 * (a - b) / k, 0.0, 1.0);
+    return mix(a, b, h) - k * h * (1.0 - h);
+}
+
+float smooth_max(float a, float b, float k) 
+{
+    return -smooth_min(-a, -b, k);
+}
+
+float subtractOp(float a, float b)
+{
+    return max(-a, b);
+}
+
+float intersectionOp(float a, float b)
+{
+    return max(a, b);
+}
+
+float unionOp(float a, float b)
+{
+    return min(a, b);
+}
+
+// *****************************
 
 mat2 rot2DMat(float a);
 
@@ -81,7 +121,7 @@ float getLight(vec3 p)
 
     float diffuse = clamp(dot(v_light, normal), 0.0, 1.0);
 
-    float d = rayMarch(p + normal * SURF_DIST, v_light);
+    float d = rayMarch(p + normal * SURF_DIST * 2.0, v_light);
 
     // vamos verificar se ocorreu alguma intersecção entre a luz e o ponto
     if(d < length(p_light - p))
@@ -92,9 +132,30 @@ float getLight(vec3 p)
     return diffuse;
 }
 
-float drawPlane(vec3 p)
+float drawSphere(vec3 p, vec3 a, float r)
 {
-    return p.y;
+    return length(p - a) - r;
+}
+
+float drawCapsule(vec3 p, vec3 a, vec3 b, float r)
+{
+    vec3 ap = p - a;
+    vec3 ab = b - a;
+
+    float t = dot(ap, ab) / dot(ab, ab);
+    t = clamp(t, 0.0, 1.0);
+
+    vec3 c = a + t * ab;
+
+    return length(p - c)  - r;
+}
+
+float drawTorus(vec3 p, float r, float s)
+{
+    float x = length(p.xz) - r;
+    float y = p.y;
+
+    return length(vec2(x, y)) - s;
 }
 
 float drawBox(vec3 p, vec3 s)
@@ -103,10 +164,18 @@ float drawBox(vec3 p, vec3 s)
     return length(max(q, 0.0)) + min(max(q.x,max(q.y, q.z)),0.0);
 }
 
+float drawPlane(vec3 p)
+{
+    return p.y;
+}
+
 float getDist(vec3 p)
 {
+    float sdA = drawSphere(p, vec3(0.5, 1.0, 0.0), 1.0);
+    float sdB = drawSphere(p, vec3(-0.5, 1.0, 0.0), 1.0);
+
     float d = min(
-        drawBox(p - vec3(0, 1, 0), vec3(1.0, 1.0, 1.0)), 
+        unionOp(sdA, sdB),
         drawPlane(p)
     );
 
