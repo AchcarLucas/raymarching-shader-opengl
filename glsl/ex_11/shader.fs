@@ -201,7 +201,7 @@ float getDist(vec3 p)
     bp -= vec3(0.0, 1.0, 0.0);
     //bp.xz *= rot2DMat(iTime);
 
-    float r_distortion = 0.15;
+    float r_distortion = 0.05;
     float sdB = drawBox(bp, vec3(1.0)) - sin(p.x * 7.5 + iTime * 3.0) * r_distortion;
 
     // sdB = shellOp(sdB, 0.01);
