@@ -83,7 +83,7 @@ Exemplo de utilização com aplicação em modo ```Release``` (No linux)
 
 👽 Exemplo no ```Windows```
 ```
-/bin/Release/raymarching-shader-opengl.exe './glsl/ex_02/'
+bin/Release/raymarching-shader-opengl.exe './glsl/ex_02/'
 ```
 
 Lembrando que a pasta deve conter um ```shader.vs``` e um ```shader.fs```
