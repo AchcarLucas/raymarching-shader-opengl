@@ -54,20 +54,24 @@ float drawPlane(vec3 p);
 float smooth_min(float a, float b, float k);
 float smooth_max(float a, float b, float k);
 
-float subtractOp(float a, float b);
-float intersectionOp(float a, float b);
-float unionOp(float a, float b);
-
 float smooth_min(float a, float b, float k) 
 {
     float h = clamp(0.5 + 0.5 * (a - b) / k, 0.0, 1.0);
     return mix(a, b, h) - k * h * (1.0 - h);
 }
 
-float smooth_max(float a, float b, float k) 
+float smooth_max(float a, float b, float k)
 {
     return -smooth_min(-a, -b, k);
 }
+
+float subtractOp(float a, float b);
+float intersectionOp(float a, float b);
+float unionOp(float a, float b);
+
+float smoothSubtractOp(float a, float b, float k);
+float smoothIntersectionOp(float a, float b, float k);
+float smoothUnionOp(float a, float b, float k);
 
 float subtractOp(float a, float b)
 {
@@ -82,6 +86,21 @@ float intersectionOp(float a, float b)
 float unionOp(float a, float b)
 {
     return min(a, b);
+}
+
+float smoothSubtractOp(float a, float b, float k)
+{
+    return smooth_max(-a, b, k);
+}
+
+float smoothIntersectionOp(float a, float b, float k)
+{
+    return smooth_max(a, b, k);
+}
+
+float smoothUnionOp(float a, float b, float k)
+{
+    return smooth_min(a, b, k);
 }
 
 // *****************************
@@ -114,7 +133,7 @@ vec3 getNormal(vec3 p)
 
 float getLight(vec3 p)
 {
-    vec3 p_light = vec3(-3, 5, -4);
+    vec3 p_light = vec3(3, 5, -4);
     // p_light.xz += vec2(sin(iTime), cos(iTime));
     vec3 v_light = normalize(p_light - p);
     vec3 normal = getNormal(p);
@@ -172,10 +191,16 @@ float drawPlane(vec3 p)
 float getDist(vec3 p)
 {
     float sdA = drawSphere(p, vec3(0.5, 1.0, 0.0), 1.0);
-    float sdB = drawSphere(p, vec3(-0.5, 1.0, 0.0), 1.0);
+    //float sdB = drawSphere(p, vec3(-0.5, 1.0, 0.0), 1.0);
+
+    vec3 bp = p;
+    bp -= vec3(2.0, 1.0, 0.0);
+    bp.xz *= rot2DMat(iTime);
+
+    float sdB = drawBox(bp, vec3(0.5, 0.5, 0.5));
 
     float d = min(
-        unionOp(sdA, sdB),
+        smoothUnionOp(sdA, sdB, 0.4),
         drawPlane(p)
     );
 
