@@ -74,7 +74,7 @@ Exemplo de utilização com aplicação em modo ```Debug```
 bin/Debug/raymarching-shader-opengl.exe './glsl/ex_02/'
 ```
 
-Exemplo de utilização com aplicação em modo ```Release``` (No linux)
+Exemplo de utilização com aplicação em modo ```Release```
 
 👽 Exemplo no ```Linux```
 ```
