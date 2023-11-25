@@ -90,7 +90,7 @@ float drawBox(vec3 p, vec3 size)
 
 float getDist(vec3 p)
 {
-    float d = min(drawBox(p - vec3(0,1,0), vec3(0.5, 0.5, 0.5)), drawPlane(p));
+    float d = min(drawBox(p - vec3(-2,1,0), vec3(0.5, 0.5, 0.5)), drawPlane(p));
     return d;
 }
 
