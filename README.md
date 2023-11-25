@@ -54,4 +54,32 @@ Verifique se a configuração do seu codeblock como segue as imagens a seguir:
 
 Pronto, o Codeblock está configurado
 
-### 🚀 Executando um exemplo (TODO)
+### 🚀 Executando um exemplo
+
+Depois que a aplicação já estiver compilada, passe como argumento a pasta do ```shader.vs``` e ```shader.fs```
+
+Exemplo de utilização com aplicação em modo ```Debug``` 
+
+👽 Exemplo no ```Linux```
+```
+./bin/Debug/raymarching-shader-opengl './glsl/ex_02/'
+```
+
+👽 Exemplo no ```Windows```
+```
+./bin/Debug/raymarching-shader-opengl.exe './glsl/ex_02/'
+```
+
+Exemplo de utilização com aplicação em modo ```Release``` (No linux)
+
+👽 Exemplo no ```Linux```
+```
+./bin/Release/raymarching-shader-opengl './glsl/ex_02/'
+```
+
+👽 Exemplo no ```Windows```
+```
+./bin/Release/raymarching-shader-opengl.exe './glsl/ex_02/'
+```
+
+Lembrando que a pasta deve conter um ```shader.vs``` e um ```shader.fs```
