@@ -99,13 +99,13 @@ O exemplo [christmas](https://www.shadertoy.com/view/3dVfDc) e [structures](http
 
 ![structures](./images/structures.gif)
 
-### Exemplo 1 (Sphere + Plane + Light)
+### Exemplo 1 (Sphere + Plane)
 ![ex_01](./images/ex_01.png)
 
-### Exemplo 2 (Sphere)
+### Exemplo 2 (Sphere + Plane + Light)
 ![ex_01](./images/ex_02.gif)
 
-### Exemplo 3 (Capsule )
+### Exemplo 3 (Capsule)
 ![ex_01](./images/ex_03.gif)
 
 ### Exemplo 4 (Torus)
