@@ -43,9 +43,10 @@ vec3 getNormal(vec3 p);
 
 float getDist(vec3 p);
 float rayMarch(vec3 ro, vec3 rd);
-float drawSphere(vec3 p, vec3 position, float radiuns);
-float drawPlane(vec3 p);
 float getLight(vec3 p);
+
+float drawBox(vec3 p, vec3 s);
+float drawPlane(vec3 p);
 
 vec3 getNormal(vec3 p)
 {
@@ -83,9 +84,9 @@ float drawPlane(vec3 p)
     return p.y;
 }
 
-float drawBox(vec3 p, vec3 size)
+float drawBox(vec3 p, vec3 s)
 {
-    return length(max(abs(p) - size, 0.0));
+    return length(max(abs(p) - s, 0.0));
 }
 
 float getDist(vec3 p)

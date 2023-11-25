@@ -41,12 +41,13 @@ void main()
 
 float getDist(vec3 p);
 float rayMarch(vec3 ro, vec3 rd);
-float drawSphere(vec3 p, vec3 position, float radiuns);
+
+float drawSphere(vec3 p, vec3 a, float r);
 float drawPlane(vec3 p);
 
-float drawSphere(vec3 p, vec3 position, float radiuns)
+float drawSphere(vec3 p, vec3 a, float r)
 {
-    return length(p - position) - radiuns;
+    return length(p - a) - r;
 }
 
 float drawPlane(vec3 p)

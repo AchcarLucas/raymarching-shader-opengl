@@ -46,9 +46,10 @@ vec3 getNormal(vec3 p);
 
 float getDist(vec3 p);
 float rayMarch(vec3 ro, vec3 rd);
+float getLight(vec3 p);
+
 float drawSphere(vec3 p, vec3 position, float radiuns);
 float drawPlane(vec3 p);
-float getLight(vec3 p);
 
 mat2 rot2DMat(float angle);
 

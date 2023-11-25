@@ -43,9 +43,13 @@ vec3 getNormal(vec3 p);
 
 float getDist(vec3 p);
 float rayMarch(vec3 ro, vec3 rd);
-float drawSphere(vec3 p, vec3 position, float radiuns);
-float drawPlane(vec3 p);
 float getLight(vec3 p);
+
+float drawSphere(vec3 p, vec3 a, float r);
+float drawCapsule(vec3 p, vec3 a, vec3 b, float r);
+float drawTorus(vec3 p, float r, float s);
+float drawPlane(vec3 p);
+
 
 vec3 getNormal(vec3 p)
 {
@@ -78,9 +82,9 @@ float getLight(vec3 p)
     return diffuse;
 }
 
-float drawSphere(vec3 p, vec3 position, float r)
+float drawSphere(vec3 p, vec3 a, float r)
 {
-    return length(p - position) - r;
+    return length(p - a) - r;
 }
 
 float drawCapsule(vec3 p, vec3 a, vec3 b, float r)

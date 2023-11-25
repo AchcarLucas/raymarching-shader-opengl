@@ -43,9 +43,10 @@ vec3 getNormal(vec3 p);
 
 float getDist(vec3 p);
 float rayMarch(vec3 ro, vec3 rd);
-float drawSphere(vec3 p, vec3 position, float radiuns);
-float drawPlane(vec3 p);
 float getLight(vec3 p);
+
+float drawCylinder(vec3 p, vec3 a, vec3 b, float r);
+float drawPlane(vec3 p);
 
 vec3 getNormal(vec3 p)
 {
