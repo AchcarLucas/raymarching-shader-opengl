@@ -87,3 +87,30 @@ Exemplo de utilização com aplicação em modo ```Release``` (No linux)
 ```
 
 Lembrando que a pasta deve conter um ```shader.vs``` e um ```shader.fs```
+
+
+O exemplo [christmas](https://www.shadertoy.com/view/3dVfDc) e [structures](https://www.shadertoy.com/view/Ms2SDc) foram tirados do ShaderToy para teste
+
+### Exemplo [Christmas](https://www.shadertoy.com/view/3dVfDc)
+
+![christmas](./images/christmas.gif)
+
+### Exemplo [Structures](https://www.shadertoy.com/view/Ms2SDc)
+
+![structures](./images/structures.gif)
+
+### Exemplo 1 (Sphere + Plane + Light)
+![ex_01](./images/ex_01.png)
+
+### Exemplo 2 (Sphere)
+![ex_01](./images/ex_02.gif)
+
+### Exemplo 3 (Capsule )
+![ex_01](./images/ex_03.gif)
+
+### Exemplo 4 (Torus)
+![ex_01](./images/ex_04.gif)
+
+### Exemplo 5 (Cube)
+![ex_01](./images/ex_05.gif)
+
