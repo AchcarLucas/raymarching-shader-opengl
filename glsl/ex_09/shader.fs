@@ -47,7 +47,7 @@ float drawSphere(vec3 p, vec3 a, float r);
 float drawCapsule(vec3 p, vec3 a, vec3 b, float r);
 float drawTorus(vec3 p, float r, float s);
 float drawBox(vec3 p, vec3 s);
-float drawPlane(vec3 p);
+float drawPlane(vec3 p, vec3 n, float d);
 
 // ********** Operation **********
 
@@ -68,6 +68,7 @@ float smooth_max(float a, float b, float k)
 float subtractOp(float a, float b);
 float intersectionOp(float a, float b);
 float unionOp(float a, float b);
+float shellOp(float a, float k);
 
 float smoothSubtractOp(float a, float b, float k);
 float smoothIntersectionOp(float a, float b, float k);
@@ -86,6 +87,11 @@ float intersectionOp(float a, float b)
 float unionOp(float a, float b)
 {
     return min(a, b);
+}
+
+float shellOp(float a, float k)
+{
+    return abs(a) - k;
 }
 
 float smoothSubtractOp(float a, float b, float k)
@@ -133,20 +139,18 @@ vec3 getNormal(vec3 p)
 
 float getLight(vec3 p)
 {
-    vec3 p_light = vec3(3, 5, -4);
+    vec3 p_light = vec3(3, 5, 4);
     // p_light.xz += vec2(sin(iTime), cos(iTime));
+
     vec3 v_light = normalize(p_light - p);
     vec3 normal = getNormal(p);
 
-    float diffuse = clamp(dot(v_light, normal), 0.0, 1.0);
+    float diffuse = clamp(dot(normal, v_light) * 0.5 + 0.5, 0.0, 1.0);
 
     float d = rayMarch(p + normal * SURF_DIST * 2.0, v_light);
 
     // vamos verificar se ocorreu alguma intersecção entre a luz e o ponto
-    if(d < length(p_light - p))
-    {
-        diffuse *= 0.1f;
-    }
+    if(p.y < 0.01 && d < length(p_light - p)) diffuse *= .5;
 
     return diffuse;
 }
@@ -183,9 +187,9 @@ float drawBox(vec3 p, vec3 s)
     return length(max(q, 0.0)) + min(max(q.x,max(q.y, q.z)),0.0);
 }
 
-float drawPlane(vec3 p)
+float drawPlane(vec3 p, vec3 n, float d)
 {
-    return p.y;
+    return dot(p, normalize(n)) - d;
 }
 
 float getDist(vec3 p)
@@ -195,13 +199,15 @@ float getDist(vec3 p)
 
     vec3 bp = p;
     bp -= vec3(0.0, 1.0, 0.0);
-    bp.xz *= rot2DMat(iTime);
+    //bp.xz *= rot2DMat(iTime);
 
     float sdB = drawBox(bp, vec3(0.5, 0.5, 0.5));
 
+    sdB = shellOp(sdB, 0.01);
+
     float d = min(
-        mix(sdA, sdB, sin(iTime) * 0.5 + 0.5),
-        drawPlane(p)
+        drawPlane(p - vec3(0, 0, 0), vec3(0, 1, 0), sin(p.x)),
+        sdB
     );
 
     return d;
@@ -270,7 +276,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 
     float d = rayMarch(ro, rd);
 
-    d = getLight(ro + rd * d);
+    d = (d < MAX_DIST) ? getLight(ro + rd * d) : 0.0;
 
     fragColor = gammaCorrection(vec4(d, d, d, 1.0));
 }
