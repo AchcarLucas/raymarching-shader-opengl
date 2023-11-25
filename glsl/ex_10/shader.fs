@@ -272,7 +272,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     // ro.xz *= rot2DMat(iTime * 0.2 - mouse.x * 2 * PI);
     ro.xz *= rot2DMat(mouse.x * 2.0 * PI);
     
-    // ray distance
+    // ray direction
     vec3 rd = R(uv, ro, vec3(0,0,0), 0.7);
 
     float d = rayMarch(ro, rd);
