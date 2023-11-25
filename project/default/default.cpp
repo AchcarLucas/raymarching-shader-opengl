@@ -11,8 +11,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#define EX_MARCHING 04
-
 static void processInput(GLFWwindow *, float);
 static void mouseCallback(GLFWwindow*, double, double);
 static void scrollCallback(GLFWwindow*, double, double);
@@ -41,21 +39,11 @@ static void updateShader(const int width, const int height);
 
 static UBO *ubo;
 
-int run_default(const int width, const int height)
+int run_default(const std::string &folder, const int width, const int height)
 {
     _stbi_set_flip_vertically_on_load(true);
 
-    #if EX_MARCHING == 00
-        Shader *shader = new Shader("glsl/default/shader.vs", "glsl/default/shader.fs");
-    #elif EX_MARCHING == 01
-        Shader *shader = new Shader("glsl/ex_01/shader.vs", "glsl/ex_01/shader.fs");
-    #elif EX_MARCHING == 02
-        Shader *shader = new Shader("glsl/ex_02/shader.vs", "glsl/ex_02/shader.fs");
-    #elif EX_MARCHING == 03
-        Shader *shader = new Shader("glsl/christmas/shader.vs", "glsl/christmas/shader.fs");
-    #elif EX_MARCHING == 04
-        Shader *shader = new Shader("glsl/structures/shader.vs", "glsl/structures/shader.fs");
-    #endif // EX_MARCHING
+    Shader *shader = new Shader(folder + "shader.vs", folder + "shader.fs");
 
     ubo = new UBO("General", 2 * sizeof(glm::vec2) + sizeof(float), 0);
 

@@ -1,8 +1,10 @@
 #ifndef TESTS_HPP
 #define TESTS_HPP
 
-#define run(width, height) run_default(width, height)
+#include <string>
 
-int run_default(const int, const int);
+#define run(folder, width, height) run_default(folder, width, height)
+
+int run_default(const std::string &, const int, const int);
 
 #endif // INIT_HPP
