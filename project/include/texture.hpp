@@ -55,7 +55,7 @@ inline TextureTypeMap textureTypeMap = {
     {TextureType::HEIGHT, "height"},
     {TextureType::FRAMEBUFFER, "framebuffer"},
     {TextureType::FRAMEBUFFER_DEPTH_MAPPING, "depth"},
-    {TextureType::FRAMEBUFFER_MULTISAMPLE, "multisample"},
+    {TextureType::FRAMEBUFFER_MULTISAMPLE, "multisample"}
 };
 
 class Texture2D
@@ -76,11 +76,16 @@ class Texture2D
         unsigned int getHeight() { return this->height; }
 
         GLuint getGenTexture() { return texture; }
+
+        bool hasError() { return err; }
+
     protected:
         GLuint texture;
         TextureType type;
         GLenum format;
         unsigned int width, height;
+
+        bool err = false;
 
     private:
         std::string file;
@@ -99,12 +104,17 @@ class TextureCube
 
         GLuint getGenTexture() { return texture; }
         std::vector<std::string> getFiles() { return this->files; }
+
         GLenum getFormat() { return this->format; }
+
+        bool hasError() { return err; }
 
     protected:
         GLuint texture;
         GLenum format;
         unsigned int width, height;
+
+        bool err = false;
 
     private:
 

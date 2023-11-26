@@ -27,6 +27,7 @@ Texture2D::Texture2D(const std::string file, const TextureType type, bool flip, 
     if(!image) {
         _stbi_image_free(image);
         std::cout << "ERROR::LOAD::TEXTURE_2D" << std::endl;
+        this->err = true;
         return;
     }
 
@@ -125,7 +126,7 @@ TextureCube::TextureCube(std::vector<std::string> files, bool flip)
         if (!data) {
             std::cout << "ERROR::LOAD::CUBEMAP: " << files[i] << std::endl;
             _stbi_image_free(data);
-            delete this;
+            err = true;
             return;
         }
 
