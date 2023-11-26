@@ -47,6 +47,12 @@ cmake --build .
 após fazer a build, copie os arquivos ```.so``` para a pasta ```/usr/local/lib``` e crie um atalho do ```libassimp.so.5``` para a 
 pasta principal do projeto clonado
 
+Se necessário, utilize o comando para conseguir executar via terminal
+
+```
+sudo ldconfig
+```
+
 ## 🔧 Configuração do CodeBlock
 
 Verifique se a configuração do seu codeblock como segue as imagens a seguir:
