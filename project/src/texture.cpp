@@ -17,7 +17,7 @@ static GLenum ImageTypeFormat(int format)
     return GL_NONE;
 }
 
-Texture2D::Texture2D(const std::string file, const TextureType type, bool flip, const GLenum gl_format)
+Texture2D::Texture2D(const std::string file, const TextureType type, bool flip, const GLenum gl_format, Filter filter, Wrap wrap)
 {
     _stbi_set_flip_vertically_on_load(flip);
 
@@ -38,10 +38,38 @@ Texture2D::Texture2D(const std::string file, const TextureType type, bool flip, 
     glGenTextures(1, &this->texture);
     glBindTexture(GL_TEXTURE_2D, this->texture);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, this->format == GL_RGBA ? GL_CLAMP_TO_EDGE : GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, this->format == GL_RGBA ? GL_CLAMP_TO_EDGE : GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    GLuint _filter;
+    GLuint _wrap;
+
+    switch(wrap) {
+        case Wrap::CLAMP_TO_BORDER:
+            _wrap = GL_CLAMP_TO_BORDER;
+            break;
+        case Wrap::CLAMP_TO_EDGE:
+            _wrap = GL_CLAMP_TO_EDGE;
+            break;
+        case Wrap::REPEAT:
+        default:
+            _wrap = GL_REPEAT;
+            break;
+    }
+
+    switch(filter) {
+        case Filter::NEAREST:
+            _filter = GL_NEAREST;
+            break;
+        case Filter::LINEAR:
+            _filter = GL_LINEAR;
+            break;
+        case Filter::MIPMAP:
+            _filter = GL_NEAREST_MIPMAP_LINEAR;
+            break;
+    }
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _wrap);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _wrap);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _filter);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _filter);
 
     glTexImage2D(GL_TEXTURE_2D, 0, (gl_format != GL_NONE) ? gl_format : this->format, width, height, 0, this->format, GL_UNSIGNED_BYTE, image);
     glGenerateMipmap(GL_TEXTURE_2D);
@@ -111,7 +139,7 @@ void Texture2D::bind(GLenum _GL_TEXTURE)
     glBindTexture(GL_TEXTURE_2D, this->texture);
 }
 
-TextureCube::TextureCube(std::vector<std::string> files, bool flip)
+TextureCube::TextureCube(std::vector<std::string> files, bool flip, Filter filter, Wrap wrap)
 {
     _stbi_set_flip_vertically_on_load(flip);
 
@@ -139,15 +167,44 @@ TextureCube::TextureCube(std::vector<std::string> files, bool flip)
 
     if(err) return;
 
+    GLuint _filter;
+    GLuint _wrap;
+
+    switch(wrap) {
+        case Wrap::CLAMP_TO_BORDER:
+            _wrap = GL_CLAMP_TO_BORDER;
+            break;
+        case Wrap::CLAMP_TO_EDGE:
+            _wrap = GL_CLAMP_TO_EDGE;
+            break;
+        case Wrap::REPEAT:
+        default:
+            _wrap = GL_REPEAT;
+            break;
+    }
+
+    switch(filter) {
+        case Filter::NEAREST:
+            _filter = GL_NEAREST;
+            break;
+        case Filter::LINEAR:
+            _filter = GL_LINEAR;
+            break;
+        case Filter::MIPMAP:
+            _filter = GL_NEAREST_MIPMAP_LINEAR;
+            break;
+    }
+
     this->files = files;
     this->width = width;
     this->height = height;
 
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, _wrap);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, _wrap);
+
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, _filter);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, _filter);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, _filter);
 }
 
 TextureCube::~TextureCube()

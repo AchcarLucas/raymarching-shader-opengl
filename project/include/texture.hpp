@@ -10,6 +10,18 @@
 
 #include "image.hpp"
 
+enum Filter {
+    NEAREST = 1,
+    LINEAR,
+    MIPMAP
+};
+
+enum Wrap {
+    REPEAT = 1,
+    CLAMP_TO_BORDER,
+    CLAMP_TO_EDGE
+};
+
 enum TextureType {
     DIFFUSE = 1,
     SPECULAR,
@@ -61,7 +73,7 @@ inline TextureTypeMap textureTypeMap = {
 class Texture2D
 {
     public:
-        Texture2D(const std::string file, const TextureType type = TextureType::ALBEDO, bool flip = true, const GLenum gl_format = GL_NONE);
+        Texture2D(const std::string file, const TextureType type = TextureType::ALBEDO, bool flip = true, const GLenum gl_format = GL_NONE, Filter filter = Filter::LINEAR, Wrap wrap = Wrap::REPEAT);
         Texture2D(const int width, const int height, const TextureType type = TextureType::FRAMEBUFFER, const GLenum gl_internalformat = GL_RGB, const GLenum gl_format = GL_RGB);
         Texture2D(const int width, const int height, unsigned int multisample);
         virtual ~Texture2D();
@@ -94,7 +106,7 @@ class Texture2D
 class TextureCube
 {
     public:
-        TextureCube(std::vector<std::string> files, bool flip = true);
+        TextureCube(std::vector<std::string> files, bool flip = true, Filter filter = Filter::LINEAR, Wrap wrap = Wrap::CLAMP_TO_EDGE);
         virtual ~TextureCube();
 
         unsigned int getWidth() { return this->width; }
