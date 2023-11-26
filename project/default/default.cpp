@@ -108,14 +108,16 @@ int run_default(const std::string &folder, const int width, const int height)
 
         shader->use();
 
+        /*
         unsigned channel = 0;
 
         // texturas 2D
         for(; channel < textures_2d.size(); ++channel) {
             shader->setInt("iChannel" + std::to_string(channel), 1);
         }
+        */
 
-        quad->draw(shader, false);
+        quad->draw(shader);
 
         processInput(window, delta_time);
 
