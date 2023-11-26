@@ -19,18 +19,10 @@ vec2 iMouse = general.mouse;
 float iTime = general.time;
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord);
-vec4 gammaCorrection(vec4 color);
-
-vec4 gammaCorrection(vec4 color)
-{
-    float gamma = 2.2;
-    return pow(color, 1.0 / vec4(gamma));
-}
 
 void main()
 {
     mainImage(fragColor, gl_FragCoord.xy);
-    // fragColor = gammaCorrection(fragColor);
 }
 
 /////////////////////////////////////////////////////////////////////
