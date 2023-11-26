@@ -2,7 +2,7 @@
 
 Projeto para criar efeitos gráficos usando Ray Marching
 
-Atualmente, shaders do site [ShaderToy](https://www.shadertoy.com/) que usam ```iMouse``` e ```iTime``` são compatíveis com a aplicação, temos como exemplo o [christmas](https://www.shadertoy.com/view/3dVfDc) e o [structures](https://www.shadertoy.com/view/Ms2SDc)
+Atualmente, shaders do site [ShaderToy](https://www.shadertoy.com/) que usam ```iResolution```, ```iMouse``` e ```iTime``` são compatíveis com a aplicação, temos como exemplo o [christmas](https://www.shadertoy.com/view/3dVfDc) e o [structures](https://www.shadertoy.com/view/Ms2SDc)
 
 Ao longo do desenvolvimento, será implementado mais features, deixando ainda mais compatível com o [ShaderToy](https://www.shadertoy.com/)
 
