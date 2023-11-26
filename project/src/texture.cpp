@@ -127,7 +127,6 @@ TextureCube::TextureCube(std::vector<std::string> files, bool flip)
             std::cout << "ERROR::LOAD::CUBEMAP: " << files[i] << std::endl;
             _stbi_image_free(data);
             err = true;
-            return;
         }
 
         this->format = ImageTypeFormat(n_channel);
@@ -137,6 +136,8 @@ TextureCube::TextureCube(std::vector<std::string> files, bool flip)
 
         std::cout << "LOAD::TEXTURE_CUBEMAP <" << files[i] << ">" << std::endl;
     }
+
+    if(err) return;
 
     this->files = files;
     this->width = width;
