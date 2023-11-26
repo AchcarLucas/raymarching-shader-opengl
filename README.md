@@ -99,6 +99,10 @@ O exemplo [christmas](https://www.shadertoy.com/view/3dVfDc) e [structures](http
 
 ![structures](./images/structures.gif)
 
+### Exemplo [Cook-Torrance](https://www.shadertoy.com/view/XsXXDB) (Without iMouse.z)
+
+![cook_torrance](./images/cook_torrance.gif)
+
 ### Exemplo 1 (Sphere + Plane)
 ![ex_01](./images/ex_01.png)
 
