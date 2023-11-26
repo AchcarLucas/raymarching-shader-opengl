@@ -6,6 +6,7 @@
 #include "camera.hpp"
 #include "mesh.hpp"
 #include "ubo.hpp"
+#include "texture.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -53,9 +54,41 @@ int run_default(const std::string &folder, const int width, const int height)
     shader->use();
     shader->setUniformBlockBinding(ubo->getName(), ubo->getBinding());
 
-    std::vector<Texture2D*> textures = {};
+    std::vector<Texture2D*> textures_2d;
+    std::vector<TextureCube> textures_cube;
 
-    Mesh *quad = new Mesh(quad_vertices, quad_indices, textures, VERTEX_TYPE::ATTRIB_PNT);
+    /*
+    {
+        unsigned int MAX_CHANNEL = 4;
+        unsigned int i_channel = 0;
+
+        for(unsigned i = 0; i_channel < MAX_CHANNEL; ++i) {
+            Texture2D *channel = new Texture2D(folder + "/TEXTURE_2D_" + std::to_string(i) + "/texture.png", TextureType::DIFFUSE);
+
+            if(channel->hasError()) {
+                delete channel;
+                continue;
+            }
+
+            textures_2d.push_back(channel);
+
+            i_channel += 1;
+        }
+
+        for(unsigned i = 0; i_channel < MAX_CHANNEL; ++i_channel; ++i) {
+            Texture2D *channel = new Texture2D(folder + "/TEXTURE_CUBE_" + std::to_string(i_channel) + "/texture_" + std::to_string(i) + ".png", TextureType::DIFFUSE);
+
+            if(channel->hasError()) {
+                delete channel;
+                continue;
+            }
+
+            textures_cube.push_back(channel);
+        }
+    }
+    */
+
+    Mesh *quad = new Mesh(quad_vertices, quad_indices, std::vector<Texture2D*>(), VERTEX_TYPE::ATTRIB_PNT);
 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     glfwSetCursorPosCallback(window, mouseCallback);
@@ -73,7 +106,16 @@ int run_default(const std::string &folder, const int width, const int height)
 
         updateShader(width, height);
 
-        quad->draw(shader);
+        shader->use();
+
+        unsigned channel = 0;
+
+        // texturas 2D
+        for(; channel < textures_2d.size(); ++channel) {
+            shader->setInt("iChannel" + std::to_string(channel), 1);
+        }
+
+        quad->draw(shader, false);
 
         processInput(window, delta_time);
 

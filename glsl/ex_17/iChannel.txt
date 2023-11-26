@@ -1,0 +1,23 @@
+// <iChannelX>:<TextureType>:<Folder or File>:<Filter>:<Wrap>:<VFlip>
+
+// iChannelX:
+//              1
+//              2 
+//              3
+//              4
+// TextureType: 
+//              Texture2D (File Texture) - <sampler2D>
+//              TextureCube Folder with Back, Bottom, Front, Left, Right, Top (.jpg) - <samplerCube>
+//              TextureVolumetric (File Texture) - not implement yet - <sampler3D>
+// Filter: 
+//              nearest
+//              linear
+//              mipmap
+// Wrap: 
+//              repeat
+//              clamp_to_border
+//              clamp_to_edge
+// VFlip:
+//              true
+//              false
+iChannel0:Texture2D:./textura_2d/texture.png:mipmap:repeat:true

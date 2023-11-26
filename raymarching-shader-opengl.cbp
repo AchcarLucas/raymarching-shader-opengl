@@ -362,6 +362,7 @@
 		<Unit filename="lib/std_image/stb_image.h" />
 		<Unit filename="project/default/default.cpp" />
 		<Unit filename="project/include/camera.hpp" />
+		<Unit filename="project/include/channel.hpp" />
 		<Unit filename="project/include/ebo.hpp" />
 		<Unit filename="project/include/framebuffer.hpp" />
 		<Unit filename="project/include/image.hpp" />
@@ -378,6 +379,7 @@
 		<Unit filename="project/include/vao.hpp" />
 		<Unit filename="project/include/vbo.hpp" />
 		<Unit filename="project/src/camera.cpp" />
+		<Unit filename="project/src/channel.cpp" />
 		<Unit filename="project/src/ebo.cpp" />
 		<Unit filename="project/src/framebuffer.cpp" />
 		<Unit filename="project/src/image.cpp" />
