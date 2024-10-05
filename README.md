@@ -11,8 +11,8 @@ Ao longo do desenvolvimento, será implementado mais features, deixando ainda ma
 ### Instalação da lib X11
 
 ```
-sudo apt-get install doxygen dnf xorg-dev
-sudo dnf install libXcursor-devel libXi-devel libXinerama-devel libXrandr-devel
+sudo apt-get install doxygen xorg-dev
+sudo apt install libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev libglx-dev libgl1-mesa-dev libxxf86vm-dev
 ```
 
 ### Instalação da lib GLFW (GLFW-3.3.8)
@@ -25,7 +25,6 @@ Após baixar, extrair e faça a compilação usando os comandos dentro da pasta 
 cmake -S . -B build
 cmake build
 cd build
-make build
 sudo make install
 ```
 
